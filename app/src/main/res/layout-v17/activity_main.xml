@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+
+    <TextClock
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textClock"
+        android:layout_marginTop="141dp"
+        android:elegantTextHeight="false"
+        android:textStyle="bold"
+        android:autoText="false"
+        android:minHeight="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/BusHawk"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Stops"
+        android:id="@+id/myStopsButton"
+        android:layout_below="@+id/textClock"
+        android:layout_toLeftOf="@+id/textClock"
+        android:layout_toStartOf="@+id/textClock"
+        android:layout_marginTop="101dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Routes"
+        android:id="@+id/myRoutesButton"
+        android:layout_alignBottom="@+id/myStopsButton"
+        android:layout_toRightOf="@+id/textClock"
+        android:layout_toEndOf="@+id/textClock" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search by Stop"
+        android:id="@+id/searchStopButton"
+        android:layout_alignTop="@+id/searchRouteButton"
+        android:layout_toLeftOf="@+id/textClock"
+        android:layout_toStartOf="@+id/textClock" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search By Route"
+        android:id="@+id/searchRouteButton"
+        android:layout_below="@+id/myRoutesButton"
+        android:layout_alignLeft="@+id/myRoutesButton"
+        android:layout_alignStart="@+id/myRoutesButton"
+        android:layout_marginTop="48dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="The University of Kansas"
+        android:id="@+id/KUTextView"
+        android:layout_below="@+id/textClock"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp" />
+</RelativeLayout>
