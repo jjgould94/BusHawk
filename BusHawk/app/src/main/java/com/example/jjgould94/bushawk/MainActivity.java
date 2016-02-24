@@ -1,5 +1,6 @@
 package com.example.jjgould94.bushawk;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -52,6 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void onRow1Click(View view)
     {
-        Intent intent = new Intent(this, DisplayMessageActivity.class); 
+        Intent intent = new Intent(this, DisplayMessageActivity.class);
     }
 }

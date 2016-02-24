@@ -25,7 +25,7 @@ public class DisplayMessageActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnable
+        //getSupportActionBar().setDisplayHomeAsUpEnable;
 
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
@@ -48,4 +48,5 @@ public class DisplayMessageActivity extends AppCompatActivity {
 //            return rootView;
 //        }
 //    }
+    }
 }
