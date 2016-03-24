@@ -1,0 +1,92 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.jjgould94.bushawk.StopMapsActivity"
+    android:weightSum="1.0">
+    <!--TODO: make sure that the weight sum is the right way that we want to be doing this-->
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:map="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:id="@+id/map"
+        tools:context="com.example.jjgould94.bushawk.StopMapsActivity"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_weight="0.5"/>
+
+    <!--TODO: make the map height fill half of the screen at the top-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/eatonHallStopText"
+        android:id="@+id/stopText"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="169dp"
+        android:layout_below="@+id/map"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/eatonHallListOfStops"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/stopText"
+        android:layout_centerHorizontal="true" />
+    <!--
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Route 43"
+            android:id="@+id/secondToStop"
+            android:layout_below="@+id/firstToStop"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Route 30"
+            android:id="@+id/thirdToStop"
+            android:layout_below="@+id/secondToStop"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Route 41"
+            android:id="@+id/fourthToStop"
+            android:layout_below="@+id/thirdToStop"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Route 10"
+            android:id="@+id/firstToStop"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" /> -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/nextArrivalsText"
+        android:id="@+id/nextArrivalsText"
+        android:layout_below="@id/textView2"
+        android:layout_centerHorizontal="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/stopsListView"
+        android:layout_below="@+id/nextArrivalsText"
+        android:layout_centerHorizontal="true"
+        tools:listitem="@android:layout/simple_list_item_2"/>
+
+
+
+</RelativeLayout>
+

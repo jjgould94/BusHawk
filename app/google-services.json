@@ -1,0 +1,43 @@
+{
+  "project_info": {
+    "project_id": "splendid-strand-120107",
+    "project_number": "201461355691",
+    "name": "My Project"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:201461355691:android:a8c5869c86c90e36",
+        "client_id": "android:com.example.jjgould94.bushawk",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.example.jjgould94.bushawk",
+          "certificate_hash": []
+        }
+      },
+      "oauth_client": [],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 2,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 1
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}
