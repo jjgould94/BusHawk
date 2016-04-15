@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- TODO: put the Google Maps on the top. New layout scheme for the buttons on the screen?-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.jjgould94.bushawk.BusView">
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight=".5"
+        android:id="@+id/busMap"
+        tools:context="com.example.jjgould94.bushawk.BusView"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_alignParentEnd="true" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/nextStopText"
+            android:id="@+id/nextStopText"
+            android:layout_marginTop="27dp"
+            android:layout_below="@+id/routeNumber"
+            android:layout_centerHorizontal="true" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/busViewRouteNum"
+            android:id="@+id/routeNumber"
+            android:layout_below="@+id/busNumber"/>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/busViewNextStopText"
+            android:id="@+id/nextStop"
+            android:layout_below="@+id/nextStopText"/>
+
+    <!--
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textAppearance="?android:attr/textAppearanceLarge"
+                   android:text="@string/busViewBusNumText"
+                   android:id="@+id/busNumber"
+                   android:layout_centerVertical="true"
+                   android:layout_centerHorizontal="true" />
+
+               <Button
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/busViewRouteNum"
+                   android:id="@+id/routeNumber"
+                   android:layout_below="@+id/busNumber"
+                   android:layout_centerHorizontal="true" />
+
+               <Button
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/busViewNextStopText"
+                   android:id="@+id/nextStop"
+                   android:layout_below="@+id/nextStopText"
+                   android:layout_centerHorizontal="true" />
+               -->
+</LinearLayout>
