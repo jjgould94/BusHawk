@@ -18,11 +18,61 @@ import com.parse.ParseQuery;
 import com.parse.ParseException;
 
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ListIterator;
 
 public class BusView extends FragmentActivity implements OnMapReadyCallback {
 
+    Handler UI_HANDLER = new Handler();
     private GoogleMap mMap;
+    private Map<Integer, Marker> markerMap;
+    Runnable UI_UPDATE_RUNNABLE = new Runnable() {
+        @Override
+        public void run() {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("FieldMouse");
+            query.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> objects, ParseException e) {
+
+
+                    if (e == null) {
+                        //Object will be filled out with latitude and longitudes
+                        Log.d("Objects", "Retrieved " + objects.size() + "buses");
+                        ListIterator<ParseObject> busIterator = objects.listIterator();
+                        LatLng newBus = null;
+                        while (busIterator.hasNext()) {
+                            ParseObject object = busIterator.next();
+                            double lat = object.getDouble("latitude");
+                            double lon = object.getDouble("longitude");
+                            int name = object.getInt("busID");
+                            String stringName = Integer.toString(name);
+                            Log.d("Objects", "Name: " + stringName + " Lat: " + lat + "Lng: " + lon);
+                            newBus = new LatLng(lat, lon);
+                            if (markerMap.containsKey(name)) {
+                                markerMap.get(name).setPosition(newBus);
+                            } else {
+                                Marker marker = mMap.addMarker(new MarkerOptions().position(newBus).title(stringName));
+                                markerMap.put(name, marker);
+                            }
+                            //TODO: clear all markers and then add them back? Need list
+                            //newBus= new LatLng(35.1,34.0);
+                            //marker.setPosition(newBus);
+                            //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newBus, 15)); //15 corresponds to street level
+
+                            //TODO addMarker returns a Marker, can add them to a list so that we can update easier
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newBus, 15)); //15 corresponds to street level
+
+                    } else {
+                        //Error occurred when querying the database
+                        Log.d("Objects", "Error: " + e.getMessage());
+                    }
+                }
+            });
+            UI_HANDLER.postDelayed(UI_UPDATE_RUNNABLE, 1000);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +82,25 @@ public class BusView extends FragmentActivity implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.busMap);
         mapFragment.getMapAsync(this);
+        markerMap = new HashMap<Integer, Marker>();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        UI_HANDLER.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        UI_HANDLER.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        UI_HANDLER.postDelayed(UI_UPDATE_RUNNABLE, 1000);
     }
 
     /**
@@ -46,40 +115,8 @@ public class BusView extends FragmentActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        //TODO: move everything below into a separate method, call the method here but also call it in the scheduler/timer task
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("FieldMouse");
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-                if (e == null) {
-                    //Object will be filled out with latitude and longitudes
-                    Log.d("Objects", "Retrieved " + objects.size() + "buses");
-                    ListIterator<ParseObject> busIterator = objects.listIterator();
-                    while (busIterator.hasNext())
-                    {
-                        ParseObject object = busIterator.next();
-                        double lat = object.getDouble("latitude");
-                        double lon = object.getDouble("longitude");
-                        int name = object.getInt("busID");
-                        String stringName = Integer.toString(name);
-                        Log.d("Objects", "Name: " + stringName + " Lat: " + lat + "Lng: " + lon);
-                        LatLng newBus = new LatLng(lat, lon);
-                        Marker marker = mMap.addMarker(new MarkerOptions().position(newBus).title(stringName));
-                        //TODO: clear all markers and then add them back? Need list
-                        //newBus= new LatLng(35.1,34.0);
-                        //marker.setPosition(newBus);
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newBus, 15)); //15 corresponds to street level
 
-                        //TODO addMarker returns a Marker, can add them to a list so that we can update easier
+        UI_HANDLER.postDelayed(UI_UPDATE_RUNNABLE, 1000);
 
-
-                    }
-
-                } else {
-                    //Error occurred when querying the database
-                    Log.d("Objects", "Error: "+e.getMessage());
-                }
-            }
-        });
     }
 }

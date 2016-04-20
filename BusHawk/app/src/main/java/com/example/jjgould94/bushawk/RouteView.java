@@ -1,9 +1,13 @@
 package com.example.jjgould94.bushawk;
 
+import android.content.Intent;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,13 +25,41 @@ import com.parse.ParseQuery;
 import java.util.List;
 import java.util.ListIterator;
 
+
 public class RouteView extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    int thisRouteNum = 1;
+
+    //NOTE: need to update this when opening the route view to make sure the correct route is loaded
+    //TODO: am I able to define this here? Make sure this works right to get the route number
+    int thisRouteNum = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //The intent contains the route number sent from the main activity
+        Intent intent = getIntent();
+        if (intent != null)
+        {
+            thisRouteNum = intent.getIntExtra("routeNumber", 0);
+        }
+        else
+        {
+            Log.d("RouteView", "ERROR: Failed to load the intent to retrieve the route number");
+        }
+
+        if (thisRouteNum == 0)
+        {
+            //ERROR: we weren't able to get the route number from the intent
+            //TODO: Do something, like pop up an error message and return to the home screen?
+            Log.d("RouteView", "ERROR: The route number is zero");
+        }
+        else
+        {
+            Log.d("RouteView","The route number is "+thisRouteNum);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route_view);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -35,6 +67,13 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.routeMap);
         mapFragment.getMapAsync(this);
     }
+
+    /*
+    public String[] parsePointString(String thePointString)
+    {
+
+    }
+    */
 
     /**
      * Manipulates the map once available.
@@ -50,23 +89,43 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
         mMap = googleMap;
 
         //This below sets the default map area to Lawrence, KS coordinates
-        double lat = 38.971332;
-        double lon = -95.236166;
-        LatLng Lawrence = new LatLng(lat, lon);
+        LatLng Lawrence = new LatLng(38.971332, -95.236166);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Lawrence, 13));
 
-        LatLng point1 = new LatLng(38.957048, -95.252098);
-        LatLng point2 = new LatLng(38.956865, -95.260466);
-        LatLng point3 = new LatLng(38.949990, -95.260488);
-        PolylineOptions route1 = new PolylineOptions()
-                .add(point1)
-                .add(point2)
-                .add(point3);
-        route1.color(Color.BLUE);
-        //route.width(4);
-        mMap.addPolyline(route1);
+        //The route object. We will add the points to this object then add it to the map
+        PolylineOptions route = new PolylineOptions();
+        route.color(Color.BLUE);
 
-        //TODO: move everything below into a separate method, call the method here but also call it in the scheduler/timer task
+        Resources routePoints = getResources();
+        TypedArray pointsArray = routePoints.obtainTypedArray(R.array.pointsArray);
+
+
+        //Go through all of the points listed in the points.xml file
+        for (int i = 0; i<pointsArray.length(); i++)
+        {
+            //Get the point item out of the array
+            String newPoint = pointsArray.getString(i);
+
+            //Parse the point into an array of strings, broken up by the comma
+            String[] pointParts = newPoint.split(",");
+
+            //Check to see if the point is for this route
+            for (int j = 3; j<pointParts.length; j++)
+            {
+                if (Integer.parseInt(pointParts[j]) == thisRouteNum)
+                {
+                    //The point is on this route, so add it to the route
+                    LatLng routePoint = new LatLng(Float.parseFloat(pointParts[1]), Float.parseFloat(pointParts[2]));
+                    route.add(routePoint);
+                }
+            }
+        }
+
+        //Now that we have added all the points to our route, we can add the route to the map
+        mMap.addPolyline(route);
+
+
+        //TODO: replicate what is happening in stop view with realtime updating here for the route view
         ParseQuery<ParseObject> query = ParseQuery.getQuery("FieldMouse");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -82,16 +141,14 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
                         double lon = object.getDouble("longitude");
                         int name = object.getInt("busID");
                         String stringName = Integer.toString(name);
-                        Log.d("Objects", "Name: " + stringName + " Lat: " + lat + "Lng: " + lon + "Route: "+ route);
+                        Log.d("Objects", "Name: " + stringName + " Lat: " + lat + " Lng: " + lon + " Route: "+ route);
 
                         //Only putting the buses that are on this route onto the map
                         if (route == thisRouteNum) {
                             LatLng newBus = new LatLng(lat, lon);
                             Marker marker = mMap.addMarker(new MarkerOptions().position(newBus).title(stringName));
-                            //TODO: clear all markers and then add them back? Need list
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newBus, 15)); //15 corresponds to street level
 
-                            //TODO addMarker returns a Marker, can add them to a list so that we can update easier
                         }
                     }
 
@@ -103,4 +160,3 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
         });
     }
 }
-

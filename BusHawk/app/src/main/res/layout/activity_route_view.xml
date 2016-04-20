@@ -1,175 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- TODO: add a map of the route on the top, with buses (and stops?) serving the route -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:layout_weight="1"
+    android:orientation="vertical"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+
     tools:context="com.example.jjgould94.bushawk.RouteView">
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        xmlns:map="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:id="@+id/routeMap"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/routeMap"
         tools:context="com.example.jjgould94.bushawk.RouteView"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_weight="0.5"/>
-    <!--
+        />
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/routeRouteNumber"
-        android:id="@+id/route30Text"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@id/routeMap"
+        android:gravity="center_horizontal"
+        android:id="@+id/routeNumberString"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/routeText"/>
 
     <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:layout_alignParentStart="false"
-        android:layout_below="@+id/route30Text"
-        android:id="@+id/tableLayout">
+        android:layout_below="@+id/routeNumberString"
+        android:id="@+id/tableLayout"
+        >
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/routeBusesText"
-                android:id="@+id/routeBuses"
+                android:id="@+id/routeBus"
                 android:layout_column="0" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/button2"
-                android:layout_column="0" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/button3"
-                android:layout_column="0" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/button4"
-                android:layout_column="0" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/button12"
-                android:layout_column="0" />
-        </TableRow>
-    </TableLayout>
-
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/route30Text"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/tableLayout2">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/routeStopsServedText"
-                android:id="@+id/stopsServedText"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/nextStopText"
+                android:id="@+id/routeBuse"
                 android:layout_column="0" />
         </TableRow>
 
+
+
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            >
 
             <Button
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/button"
-                android:layout_column="0" />
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:text="Bus 1"
+                android:id="@+id/button1"
+                />
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:text="Last Stop"
+                android:id="@+id/button2"
+                />
+
         </TableRow>
 
+
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            >
 
             <Button
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/button9"
-                android:layout_column="0"/>
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:text="Bus 2"
+                android:id="@+id/button3"
+                />
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:text="Last Stop"
+                android:id="@+id/button4"
+                />
+
         </TableRow>
 
+
+
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            >
 
             <Button
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/button10"
-                android:layout_column="0" />
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:text="Bus 3"
+                android:id="@+id/button5"
+                />
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:text="Last    Stop"
+                android:id="@+id/button6"
+                />
+
         </TableRow>
 
+
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            >
 
             <Button
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/button11"
-                android:layout_column="0" />
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:text="Bus 4"
+                android:id="@+id/button7"
+                />
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:text="Last    Stop"
+                android:id="@+id/button8"
+                />
+
         </TableRow>
     </TableLayout>
-
-    -->
-</RelativeLayout>
+</LinearLayout>

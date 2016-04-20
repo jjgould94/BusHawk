@@ -22,6 +22,8 @@ public class StopMapsActivity extends FragmentActivity implements OnMapReadyCall
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        //TODO: get the correct stop number from the intent
     }
 
     /**
