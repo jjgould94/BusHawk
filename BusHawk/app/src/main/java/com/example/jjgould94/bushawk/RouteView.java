@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,13 +23,17 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 
 
 public class RouteView extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    Handler UI_HANDLER = new Handler();
+    private Map<Integer, Marker> markerMap;
 
     //NOTE: need to update this when opening the route view to make sure the correct route is loaded
     //TODO: am I able to define this here? Make sure this works right to get the route number
@@ -66,7 +71,58 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.routeMap);
         mapFragment.getMapAsync(this);
+        markerMap = new HashMap<Integer, Marker>();
     }
+
+    Runnable UI_UPDATE_RUNNABLE = new Runnable() {
+        @Override
+        public void run() {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("FieldMouse");
+            query.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> objects, ParseException e) {
+
+
+                    if (e == null) {
+                        //Object will be filled out with latitude and longitudes
+                        Log.d("Objects", "Retrieved " + objects.size() + "buses");
+                        ListIterator<ParseObject> busIterator = objects.listIterator();
+                        LatLng newBus = null;
+                        while (busIterator.hasNext()) {
+                            ParseObject object = busIterator.next();
+                            int route = object.getInt("route");
+                            double lat = object.getDouble("latitude");
+                            double lon = object.getDouble("longitude");
+                            int name = object.getInt("busID");
+                            String stringName = Integer.toString(name);
+                            Log.d("Objects", "Name: " + stringName + " Lat: " + lat + "Lng: " + lon);
+                            newBus = new LatLng(lat, lon);
+                            if (route == thisRouteNum) {
+                                if (markerMap.containsKey(name)) {
+                                    markerMap.get(name).setPosition(newBus);
+                                } else {
+                                    Marker marker = mMap.addMarker(new MarkerOptions().position(newBus).title(stringName));
+                                    markerMap.put(name, marker);
+                                }
+                            }
+                            //TODO: clear all markers and then add them back? Need list
+                            //newBus= new LatLng(35.1,34.0);
+                            //marker.setPosition(newBus);
+                            //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newBus, 15)); //15 corresponds to street level
+
+                            //TODO addMarker returns a Marker, can add them to a list so that we can update easier
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newBus, 15)); //15 corresponds to street level
+
+                    } else {
+                        //Error occurred when querying the database
+                        Log.d("Objects", "Error: " + e.getMessage());
+                    }
+                }
+            });
+            UI_HANDLER.postDelayed(UI_UPDATE_RUNNABLE, 1000);
+        }
+    };
 
     /*
     public String[] parsePointString(String thePointString)
@@ -74,6 +130,24 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
 
     }
     */
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        UI_HANDLER.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        UI_HANDLER.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        UI_HANDLER.postDelayed(UI_UPDATE_RUNNABLE, 1000);
+    }
 
     /**
      * Manipulates the map once available.
@@ -123,10 +197,10 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
 
         //Now that we have added all the points to our route, we can add the route to the map
         mMap.addPolyline(route);
-
+        UI_HANDLER.postDelayed(UI_UPDATE_RUNNABLE, 1000);
 
         //TODO: replicate what is happening in stop view with realtime updating here for the route view
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("FieldMouse");
+       /* ParseQuery<ParseObject> query = ParseQuery.getQuery("FieldMouse");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
@@ -157,6 +231,6 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
                     Log.d("Objects", "Error: " + e.getMessage());
                 }
             }
-        });
+        });*/
     }
 }
