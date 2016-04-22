@@ -3,16 +3,16 @@
 within the RouteView.java file.
     -The overall array is an array of route points
     -Each route point is an individual item within the array
-    -Each route point has: latitude, longitude, and then all routes that use that point
-    -Latitude, longitude, and each individual route that uses the point are all separate items
+    -Each route point has: latitude, longitude, boolean indicating whether a stop or not, and then all routes that use that point
+    -Latitude, longitude, boolean, and each individual route that uses the point are all separate items
 
     -NOTE: These should be retrieved as a string. Then, parse the string to get each individual value
     -->
 <resources>
 
     <array name="pointsArray">
-        <item>p1,38.957048,-95.252098,1,2</item>
-        <item>p2,38.956865,-95.260466,1</item>
-        <item>p3,38.949990,-95.260488,2</item>
+        <item>p1,38.957048,-95.252098,false,1,2</item>
+        <item>p2,38.956865,-95.260466,true,1</item>
+        <item>p3,38.949990,-95.260488,false,2</item>
     </array>
 </resources>

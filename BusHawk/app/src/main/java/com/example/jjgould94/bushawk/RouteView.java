@@ -34,11 +34,10 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     Handler UI_HANDLER = new Handler();
     private Map<Integer, Marker> markerMap;
+    private Map<Integer, Marker> stopMap;
+    boolean firstRefreshFlag;
 
-    //NOTE: need to update this when opening the route view to make sure the correct route is loaded
-    //TODO: am I able to define this here? Make sure this works right to get the route number
     int thisRouteNum = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +71,8 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.routeMap);
         mapFragment.getMapAsync(this);
         markerMap = new HashMap<Integer, Marker>();
+        stopMap = new HashMap<Integer, Marker>();
+        firstRefreshFlag = true;
     }
 
     Runnable UI_UPDATE_RUNNABLE = new Runnable() {
@@ -112,7 +113,12 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
 
                             //TODO addMarker returns a Marker, can add them to a list so that we can update easier
                         }
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newBus, 15)); //15 corresponds to street level
+
+                        //Only change camera location if this is our first view of the map
+                        if (firstRefreshFlag) {
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newBus, 15)); //15 corresponds to street level
+                            firstRefreshFlag = false;
+                        }
 
                     } else {
                         //Error occurred when querying the database
@@ -175,6 +181,7 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
 
 
         //Go through all of the points listed in the points.xml file
+        //Points are in format: (point#), lat, lon, (stop boolean), (list of route #s this point is for)
         for (int i = 0; i<pointsArray.length(); i++)
         {
             //Get the point item out of the array
@@ -183,13 +190,22 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
             //Parse the point into an array of strings, broken up by the comma
             String[] pointParts = newPoint.split(",");
 
+            LatLng routePoint = new LatLng(Float.parseFloat(pointParts[1]), Float.parseFloat(pointParts[2]));
+
+            //The boolean indicates whether this point is also a stop
+            //If it is a stop, we add it to the hash map of stops
+            if (Boolean.parseBoolean(pointParts[3]))
+            {
+                Marker marker = mMap.addMarker(new MarkerOptions().position(routePoint).title("Stop #"+pointParts[0].substring(1)));
+                stopMap.put(Integer.parseInt(pointParts[0].substring(1)), marker);
+            }
+
             //Check to see if the point is for this route
-            for (int j = 3; j<pointParts.length; j++)
+            for (int j = 4; j<pointParts.length; j++)
             {
                 if (Integer.parseInt(pointParts[j]) == thisRouteNum)
                 {
                     //The point is on this route, so add it to the route
-                    LatLng routePoint = new LatLng(Float.parseFloat(pointParts[1]), Float.parseFloat(pointParts[2]));
                     route.add(routePoint);
                 }
             }
