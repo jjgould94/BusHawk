@@ -7,29 +7,36 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-
-    tools:context="com.example.jjgould94.bushawk.RouteView">
+    android:background="@drawable/background_routeview"
+    tools:context="com.example.jjgould94.bushawk.RouteView"
+    android:weightSum="1">
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:map="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="383dp"
         android:id="@+id/routeMap"
         tools:context="com.example.jjgould94.bushawk.RouteView"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        />
+        android:layout_weight="0.14" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/routeMap"
+        android:textColor="#f6f6f9"
         android:gravity="center_horizontal"
         android:id="@+id/routeNumberString"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/routeText"/>
-
+        android:text="@string/routeText" />
+    <ListView
+        android:layout_width="match_parent"
+        android:textColor="#f6f6f9"
+        android:layout_height="230dp"
+        android:layout_weight="0.49">
+    </ListView>
+    <!--
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
@@ -189,4 +196,5 @@
 
         </TableRow>
     </TableLayout>
+    -->
 </LinearLayout>

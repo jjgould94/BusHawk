@@ -1,86 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:layout_height="wrap_content" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:background="@drawable/background_image_hawk"
+    >
 
     <TextClock
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textClock"
-        android:layout_marginTop="141dp"
         android:elegantTextHeight="false"
         android:textStyle="bold"
+        android:textColor="#f30008fd"
         android:autoText="false"
         android:minHeight="16dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/BusHawk"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp" />
-
-    <Button
+    <Button style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+        android:textColor="#f30008fd"
+        android:textSize="6pt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="My Stops"
         android:id="@+id/myStopsButton"
-        android:layout_below="@+id/textClock"
-        android:layout_toLeftOf="@+id/textClock"
-        android:layout_toStartOf="@+id/textClock"
-        android:layout_marginTop="101dp" />
+        android:layout_above="@+id/myRoutesButton"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/tempBusButton" />
 
-    <Button
+    <Button style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+        android:textColor="#f30008fd"
+        android:textSize="6pt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="My Routes"
         android:id="@+id/myRoutesButton"
-        android:layout_alignBottom="@+id/myStopsButton"
-        android:layout_toRightOf="@+id/textClock"
-        android:layout_toEndOf="@+id/textClock" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/searchStopButton"
+        android:layout_alignEnd="@+id/myStopsButton" />
 
     <Button
+        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+        android:textColor="#f30008fd"
+        android:textSize="6pt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Search by Stop"
         android:id="@+id/searchStopButton"
-        android:layout_alignTop="@+id/searchRouteButton"
-        android:layout_toLeftOf="@+id/textClock"
-        android:layout_toStartOf="@+id/textClock" />
+        android:layout_alignEnd="@+id/searchRouteButton"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/tempBusButton"
+        android:layout_alignStart="@+id/searchRouteButton"
+        android:layout_below="@+id/myStopsButton" />
 
     <Button
+        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+        android:textColor="#f30008fd"
+        android:textSize="6pt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Search By Route"
         android:id="@+id/searchRouteButton"
-        android:layout_below="@+id/myRoutesButton"
-        android:layout_alignLeft="@+id/myRoutesButton"
-        android:layout_alignStart="@+id/myRoutesButton"
-        android:layout_marginTop="48dp" />
+        android:layout_above="@+id/searchStopButton"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/myStopsButton" />
 
     <Button
+        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+        android:textColor="#f3ffffff"
+        android:textSize="6pt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Jump to Bus"
         android:id="@+id/tempBusButton"
-        android:layout_below="@+id/searchRouteButton"
+        android:background="@drawable/bus_button"
+        android:layout_above="@+id/myStopsButton"
         android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="The University of Kansas"
-        android:id="@+id/KUTextView"
-        android:layout_below="@+id/textClock"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp" />
-</RelativeLayout>
+    <!--
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textAppearance="?android:attr/textAppearanceLarge"
+           android:text="BusHawk"
+           android:id="@+id/textView"
+           android:textSize="12pt"
+           android:textColor="#fafafc"
+           android:layout_below="@+id/textClock"
+           android:layout_centerHorizontal="true" />
+   -->
+   </RelativeLayout>
