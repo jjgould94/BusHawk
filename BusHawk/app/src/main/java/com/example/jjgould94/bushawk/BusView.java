@@ -1,9 +1,14 @@
 package com.example.jjgould94.bushawk;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,6 +32,10 @@ public class BusView extends FragmentActivity implements OnMapReadyCallback {
     Handler UI_HANDLER = new Handler();
     private GoogleMap mMap;
     private Map<Integer, Marker> markerMap;
+    private Context context;
+    int routeNumber;
+    int stopNumber;
+
     Runnable UI_UPDATE_RUNNABLE = new Runnable() {
         @Override
         public void run() {
@@ -76,6 +85,24 @@ public class BusView extends FragmentActivity implements OnMapReadyCallback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Intent myIntent = getIntent();
+        routeNumber = myIntent.getIntExtra("routeNumber", 0);
+        stopNumber = myIntent.getIntExtra("stopNumber", 0);
+
+        //TODO: change this so that we are actually getting the stop and route num from the intent
+        routeNumber = 1;
+        stopNumber = 1;
+
+        if (routeNumber == 0)
+        {
+            //TODO log an error message
+
+        }
+        if (stopNumber == 0)
+        {
+            //TODO log an error message
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus_view);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -83,6 +110,35 @@ public class BusView extends FragmentActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.busMap);
         mapFragment.getMapAsync(this);
         markerMap = new HashMap<Integer, Marker>();
+
+        final Button routeButton = (Button) findViewById(R.id.busViewRouteNum);
+        final Button stopButton = (Button) findViewById(R.id.busViewStopNum);
+
+        routeButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                //Open the route activity
+                Intent intent = new Intent(context, RouteView.class);
+                intent.putExtra("routeNumber", routeNumber);
+                startActivity(intent);
+
+            }
+
+        });
+
+        stopButton.setOnClickListener(new OnClickListener(){
+            @Override
+            public void onClick(View v)
+            {
+                //Open the stop activity
+                Intent intent = new Intent(context, StopView.class);
+                intent.putExtra("stopNumber", stopNumber);
+                startActivity(intent);
+            }
+
+        });
+
     }
 
     @Override

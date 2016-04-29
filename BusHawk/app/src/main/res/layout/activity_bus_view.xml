@@ -45,7 +45,7 @@
         android:layout_width="264dp"
         android:layout_height="wrap_content"
         android:text="@string/busViewRouteNum"
-        android:id="@+id/routeNumber"
+        android:id="@+id/busViewRouteNum"
         android:layout_below="@+id/busNumber"
         android:layout_gravity="center_horizontal" />
 
@@ -57,7 +57,7 @@
         android:layout_width="243dp"
         android:layout_height="wrap_content"
         android:text="@string/busViewNextStopText"
-        android:id="@+id/nextStop"
+        android:id="@+id/busViewStopNum"
         android:layout_below="@+id/nextStopText"
         android:layout_gravity="center_horizontal" />
 

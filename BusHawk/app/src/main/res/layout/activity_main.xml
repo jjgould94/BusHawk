@@ -68,6 +68,7 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
 
+        <!--
         <SearchView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,15 +84,15 @@
             android:queryHint="Search By Stop"
             android:layout_below="@+id/searchByRoute"
             android:layout_centerHorizontal="true" />
-
+    -->
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Jump to Bus"
             android:id="@+id/tempBusButton"
-            android:layout_below="@+id/searchByStop"
+            android:layout_below="@+id/searchStopButton"
             android:layout_centerHorizontal="true" />
-    <!--
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -110,6 +111,6 @@
             android:layout_alignLeft="@+id/myRoutesButton"
             android:layout_alignStart="@+id/myRoutesButton"
             android:layout_marginTop="48dp" />
-    -->
+
     </RelativeLayout>
 </RelativeLayout>
