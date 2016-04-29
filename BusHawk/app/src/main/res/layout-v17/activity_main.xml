@@ -40,8 +40,7 @@
         android:id="@+id/myRoutesButton"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/searchStopButton"
-        android:layout_alignEnd="@+id/myStopsButton" />
+        android:layout_toStartOf="@+id/tempBusButton" />
 
     <Button
         style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
@@ -51,11 +50,9 @@
         android:layout_height="wrap_content"
         android:text="Search by Stop"
         android:id="@+id/searchStopButton"
-        android:layout_alignEnd="@+id/searchRouteButton"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/tempBusButton"
+        android:layout_below="@+id/tempBusButton"
         android:layout_alignStart="@+id/searchRouteButton"
-        android:layout_below="@+id/myStopsButton" />
+        android:layout_alignEnd="@+id/searchRouteButton" />
 
     <Button
         style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
@@ -65,9 +62,9 @@
         android:layout_height="wrap_content"
         android:text="Search By Route"
         android:id="@+id/searchRouteButton"
-        android:layout_above="@+id/searchStopButton"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/myStopsButton" />
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/tempBusButton" />
 
     <Button
         style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"

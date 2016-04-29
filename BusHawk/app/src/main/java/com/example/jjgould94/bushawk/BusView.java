@@ -1,7 +1,11 @@
 package com.example.jjgould94.bushawk;
 
+<<<<<<< Updated upstream
 import android.content.Context;
 import android.content.Intent;
+=======
+import android.media.Image;
+>>>>>>> Stashed changes
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -10,10 +14,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.google.android.gms.ads.formats.NativeAd;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -61,7 +68,11 @@ public class BusView extends FragmentActivity implements OnMapReadyCallback {
                             if (markerMap.containsKey(name)) {
                                 markerMap.get(name).setPosition(newBus);
                             } else {
-                                Marker marker = mMap.addMarker(new MarkerOptions().position(newBus).title(stringName));
+
+                                Marker marker = mMap.addMarker(new MarkerOptions()
+                                        .position(newBus)
+                                        .title(stringName)
+                                        );
                                 markerMap.put(name, marker);
                             }
                             //TODO: clear all markers and then add them back? Need list
