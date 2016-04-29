@@ -7,7 +7,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="@drawable/background_routeview"
     tools:context="com.example.jjgould94.bushawk.RouteView"
     android:weightSum="1">
 
@@ -25,14 +24,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/routeMap"
-        android:textColor="#f6f6f9"
+        android:textColor="#0000ff"
         android:gravity="center_horizontal"
         android:id="@+id/routeNumberString"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/routeText" />
     <ListView
         android:layout_width="match_parent"
-        android:textColor="#f6f6f9"
+        android:textColor="#0000ff"
         android:layout_height="230dp"
         android:layout_weight="0.49">
     </ListView>
