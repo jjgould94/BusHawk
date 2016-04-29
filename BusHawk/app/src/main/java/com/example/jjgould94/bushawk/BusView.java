@@ -1,11 +1,8 @@
 package com.example.jjgould94.bushawk;
 
-<<<<<<< Updated upstream
 import android.content.Context;
 import android.content.Intent;
-=======
 import android.media.Image;
->>>>>>> Stashed changes
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -122,7 +119,7 @@ public class BusView extends FragmentActivity implements OnMapReadyCallback {
         mapFragment.getMapAsync(this);
         markerMap = new HashMap<Integer, Marker>();
 
-        final Button routeButton = (Button) findViewById(R.id.busViewRouteNum);
+        /*final Button routeButton = (Button) findViewById(R.id.busViewRouteNum);
         final Button stopButton = (Button) findViewById(R.id.busViewStopNum);
 
         routeButton.setOnClickListener(new OnClickListener() {
@@ -149,6 +146,7 @@ public class BusView extends FragmentActivity implements OnMapReadyCallback {
             }
 
         });
+        */
 
     }
 
