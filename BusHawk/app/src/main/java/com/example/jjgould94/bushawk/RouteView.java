@@ -126,7 +126,9 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
                                 if (markerMap.containsKey(name)) {
                                     markerMap.get(name).setPosition(newBus);
                                 } else {
-                                    Marker marker = mMap.addMarker(new MarkerOptions().position(newBus).title(stringName).icon(BitmapDescriptorFactory.fromResource(R.drawable.arrow)));
+                                    Marker marker = mMap.addMarker(new MarkerOptions()
+                                            .position(newBus).title(stringName)
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_icon)));
                                     markerMap.put(name, marker);
                                 }
                             }
@@ -220,7 +222,11 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
             //If it is a stop, we add it to the hash map of stops
             if (Boolean.parseBoolean(pointParts[3]))
             {
-                Marker marker = mMap.addMarker(new MarkerOptions().position(routePoint).title("Stop #"+pointParts[0].substring(1)));
+                Marker marker = mMap.addMarker(new MarkerOptions()
+                        .position(routePoint)
+                        .title("Stop #"+pointParts[0]
+                                .substring(1))
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.stop_sign)));
                 stopMap.put(Integer.parseInt(pointParts[0].substring(1)), marker);
             }
 
