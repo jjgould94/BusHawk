@@ -7,6 +7,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -41,7 +42,8 @@ public class StopMapsActivity extends FragmentActivity implements OnMapReadyCall
 
         // Add a marker at stop 352 and move the map
         LatLng stop352 = new LatLng(38.958726, -95.268463);
-        mMap.addMarker(new MarkerOptions().position(stop352).title("Stop #352"));
+        mMap.addMarker(new MarkerOptions().position(stop352).title("Stop #352").icon(BitmapDescriptorFactory
+                .fromResource(R.drawable.stop_sign)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(stop352));
 
 

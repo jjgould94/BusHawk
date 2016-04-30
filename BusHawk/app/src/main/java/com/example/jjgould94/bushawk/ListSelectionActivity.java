@@ -1,17 +1,25 @@
 package com.example.jjgould94.bushawk;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class ListSelectionActivity extends Activity {
+public class ListSelectionActivity extends ListActivity {
 
-    String displayType;
+    private String displayType;
+    private List<Map<String, String>> numbersMapList;
+    private List<Integer> numbersList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,21 +47,53 @@ public class ListSelectionActivity extends Activity {
             Log.d("ListSelectionActivity","The type to display is  "+displayType);
         }
 
-        final ListView listView = (ListView) findViewById(R.id.listSelectionListView);
+        //Creating a temporary list of route/stop numbers
+        //TODO: populate this with actual route/stop information
+        List<String> numbers = new ArrayList();
+        numbers.add("1");
+        numbers.add("2");
 
-        String[] values = new String[] {"1", "2"};
-        final ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i<values.length; ++i)
+        //Taking the route/stop numbers and putting them in the map
+        for (String num : numbers)
         {
-            list.add(values[i]);
+            Map<String, String> numMap = new HashMap<String, String>();
+            numMap.put(displayType, num);       //displayType will be set to either routes or stops
+            numbersMapList.add(numMap);
         }
 
+        ListAdapter adapter = new SimpleAdapter(
+                this,
+                numbersMapList,
+                android.R.layout.simple_list_item_1,
+                new String[] {displayType},
+                new int[] {android.R.id.text1}
+        );
 
+        setListAdapter(adapter);
 
-        //final ListAdapter adapter = new ListAdapter();
-        //listView.setAdapter(adapter);
-        //final ListAdaptor adaptor = new ListAdaptor(this, android.R.layout.simple_list_item_1, list);
-
+        getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
     }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id)
+    {
+        //Get what was selected
+        String selection = (String) ((HashMap) getListAdapter().getItem(position)).get(displayType);
+
+        //Open the route or stop activity
+        if (displayType == "routes")
+        {
+            Intent intent = new Intent(this, RouteView.class);
+            intent.putExtra("routeNumber", Integer.getInteger(selection));
+            startActivity(intent);
+        }
+        else
+        {
+            Intent intent = new Intent(this, StopMapsActivity.class);
+            intent.putExtra("stopNumber", Integer.getInteger(selection));
+            startActivity(intent);
+        }
+    }
+
 }

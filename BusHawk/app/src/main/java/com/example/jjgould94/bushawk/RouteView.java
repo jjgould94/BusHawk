@@ -16,6 +16,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -125,7 +126,7 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
                                 if (markerMap.containsKey(name)) {
                                     markerMap.get(name).setPosition(newBus);
                                 } else {
-                                    Marker marker = mMap.addMarker(new MarkerOptions().position(newBus).title(stringName));
+                                    Marker marker = mMap.addMarker(new MarkerOptions().position(newBus).title(stringName).icon(BitmapDescriptorFactory.fromResource(R.drawable.arrow)));
                                     markerMap.put(name, marker);
                                 }
                             }
