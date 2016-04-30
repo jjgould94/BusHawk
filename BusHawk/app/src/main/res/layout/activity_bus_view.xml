@@ -22,10 +22,10 @@
         tools:context="com.example.jjgould94.bushawk.BusView"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_alignParentEnd="true"
-        android:layout_weight="0.91" />
+        android:layout_weight="0.86" />
 
     <TextView
-        android:layout_width="565dp"
+        android:layout_width="562dp"
         android:layout_height="47dp"
         android:textColor="#0000ff"
         android:textSize="10pt"
@@ -34,12 +34,13 @@
         android:id="@+id/nextStopText"
         android:layout_marginTop="27dp"
         android:layout_below="@+id/routeNumber"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical = "true"
+        android:layout_centerHorizontal = "true"
+
         />
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="205dp">
+        android:layout_height="119dp"
+        android:layout_weight="0.20">
 
     </ListView>
 <!--

@@ -226,7 +226,7 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
                         .position(routePoint)
                         .title("Stop #"+pointParts[0]
                                 .substring(1))
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.stop_sign)));
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.arrow)));
                 stopMap.put(Integer.parseInt(pointParts[0].substring(1)), marker);
             }
 
