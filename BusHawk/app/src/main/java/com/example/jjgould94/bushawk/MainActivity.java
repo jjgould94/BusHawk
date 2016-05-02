@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
              public void onClick(View v) {
                  //Open the list selection with stops displayed
                  Intent intent = new Intent(context, ListSelectionActivity.class);
-                 intent.putExtra("type", "stops");
+                 intent.putExtra("type", "stops".toString());
                  startActivity(intent);
 
                  /*
@@ -53,10 +53,15 @@ public class MainActivity extends AppCompatActivity {
         searchRoutesButton.setOnClickListener(new OnClickListener(){
              @Override
              public void onClick (View v) {
-                 //Open the route view
-                 Intent intent = new Intent(context, StopMapsActivity.class);
-                 intent.putExtra("routeNumber", 1);
+                 //Open the list selection with routes displayed
+                 Intent intent = new Intent(context, ListSelectionActivity.class);
+                 intent.putExtra("type", "routes".toString());
                  startActivity(intent);
+
+                 //Open the route view
+                 //Intent intent = new Intent(context, StopMapsActivity.class);
+                 //intent.putExtra("routeNumber", 1);
+                 //startActivity(intent);
                  //TODO: determine which route we want to open from the dialog box
              }
 

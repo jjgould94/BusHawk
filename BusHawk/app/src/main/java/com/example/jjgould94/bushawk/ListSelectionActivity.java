@@ -1,6 +1,5 @@
 package com.example.jjgould94.bushawk;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +19,8 @@ public class ListSelectionActivity extends ListActivity {
     private String displayType;
     private List<Map<String, String>> numbersMapList;
     private List<Integer> numbersList;
+    private String routesString = "routes";
+    private String stopsString = "stops";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +37,11 @@ public class ListSelectionActivity extends ListActivity {
             Log.d("ListSelectionActivity", "ERROR: Failed to load the intent to retrieve the display type");
         }
 
-        if (displayType != "routes" || displayType != "stops")
+        if (!displayType.equals(routesString) || !displayType.equals(stopsString))
         {
             //ERROR: we weren't able to get the type from the intent
             //TODO: Do something, like pop up an error message and return to the home screen?
-            Log.d("ListSelectionActivity", "ERROR: The type to display wasn't set as routes or stops");
+            Log.d("ListSelectionActivity", "ERROR: The type to display wasn't set as routes or stops, but as "+displayType);
         }
         else
         {
@@ -50,6 +51,7 @@ public class ListSelectionActivity extends ListActivity {
         //Creating a temporary list of route/stop numbers
         //TODO: populate this with actual route/stop information
         List<String> numbers = new ArrayList();
+        numbersMapList = new ArrayList<Map<String,String>>();
         numbers.add("1");
         numbers.add("2");
 
@@ -82,10 +84,11 @@ public class ListSelectionActivity extends ListActivity {
         String selection = (String) ((HashMap) getListAdapter().getItem(position)).get(displayType);
 
         //Open the route or stop activity
-        if (displayType == "routes")
+        if (displayType.equals("routes".toString()))
         {
             Intent intent = new Intent(this, RouteView.class);
             intent.putExtra("routeNumber", Integer.getInteger(selection));
+            Log.d("ListSelectionActivity", "Opening route view with route #"+selection);
             startActivity(intent);
         }
         else
