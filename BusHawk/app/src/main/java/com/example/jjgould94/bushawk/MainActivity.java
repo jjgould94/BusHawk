@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Jeff's saveRoutePointsToFile function, moved here so that every other activity can
-    // simply load from the file rather than making a database call 
+    // simply load from the file rather than making a database call
     //TODO: determine if this should be opened before or after the UI is initially loaded
     //Would improve loading performance to be run before UI is loaded, but could result
     // in bugs and have edge cases to handle if it is running when the user is trying to
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 sb.append('\n');
                 try {
-                    //TODO add these to a global list of LatLng objects instead of writing to file
+                    //TODO add these to a global list of LatLng objects instead of writing to file?
                     fos.write(sb.toString().getBytes());
                     Log.d("saveRoutePointsToFile", "Written to file: "+sb.toString());
                 } catch (IOException ioe) {
