@@ -87,14 +87,14 @@ public class ListSelectionActivity extends ListActivity {
         if (displayType.equals("routes".toString()))
         {
             Intent intent = new Intent(this, RouteView.class);
-            intent.putExtra("routeNumber", Integer.getInteger(selection));
+            intent.putExtra("routeNumber", Integer.parseInt(selection));
             Log.d("ListSelectionActivity", "Opening route view with route #"+selection);
             startActivity(intent);
         }
         else
         {
             Intent intent = new Intent(this, StopMapsActivity.class);
-            intent.putExtra("stopNumber", Integer.getInteger(selection));
+            intent.putExtra("stopNumber", Integer.parseInt(selection));
             startActivity(intent);
         }
     }
