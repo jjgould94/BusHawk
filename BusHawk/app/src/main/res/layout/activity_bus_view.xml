@@ -27,7 +27,7 @@
     <TextView
         android:layout_width="562dp"
         android:layout_height="47dp"
-        android:textColor="#0000ff"
+        android:textColor="#ffffff"
         android:textSize="10pt"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/nextStopText"

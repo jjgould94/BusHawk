@@ -97,7 +97,7 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
                             double lon = object.getDouble("longitude");
                             int name = object.getInt("busID");
                             String stringName = Integer.toString(name);
-                            String icon = "icon_" + stringName;
+                            String icon = "icon_" + stringName + ".png";
                             Log.d("Objects", "Name: " + stringName + " Lat: " + lat + "Lng: " + lon);
                             newBus = new LatLng(lat, lon);
                             if (route == thisRouteNum) {
@@ -106,7 +106,7 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
                                 } else {
                                     Marker marker = mMap.addMarker(new MarkerOptions()
                                             .position(newBus).title(stringName)
-                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_1)));
+                                            .icon(BitmapDescriptorFactory.fromAsset(icon)));
                                     markerMap.put(name, marker);
                                 }
                             }
@@ -204,7 +204,7 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
                         .position(routePoint)
                         .title("Stop #"+pointParts[0]
                                 .substring(1))
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.stop_sign)));
+                                .icon(BitmapDescriptorFactory.fromAsset("stop_sign.png")));
                 stopMap.put(Integer.parseInt(pointParts[0].substring(1)), marker);
             }
 
