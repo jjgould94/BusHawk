@@ -79,10 +79,13 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
             Log.d("RouteView","The route number is "+thisRouteNum);
         }
 
+<<<<<<< HEAD
         //Update the route number string in RouteView.java
         TextView t = (TextView) findViewById(R.id.routeNumberString);
         //t.setText();
 
+=======
+>>>>>>> parent of 2d8e6bc... Merge remote-tracking branch 'origin/master'
     }
 
     Runnable UI_UPDATE_RUNNABLE = new Runnable() {
@@ -160,6 +163,7 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
     protected void onPause() {
         super.onPause();
         UI_HANDLER.removeCallbacksAndMessages(null);
+<<<<<<< HEAD
     }
 
     @Override
@@ -168,6 +172,8 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
         super.onStop();
         UI_HANDLER.removeCallbacksAndMessages(null);
         finish();
+=======
+>>>>>>> parent of 2d8e6bc... Merge remote-tracking branch 'origin/master'
     }
 
     @Override
@@ -207,12 +213,21 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
         {
             //Get the point item out of the array
             String newPoint = pointsArray.getString(i);
+<<<<<<< HEAD
 
             //Parse the point into an array of strings, broken up by the comma
             String[] pointParts = newPoint.split(",");
 
             LatLng routePoint = new LatLng(Float.parseFloat(pointParts[1]), Float.parseFloat(pointParts[2]));
 
+=======
+
+            //Parse the point into an array of strings, broken up by the comma
+            String[] pointParts = newPoint.split(",");
+
+            LatLng routePoint = new LatLng(Float.parseFloat(pointParts[1]), Float.parseFloat(pointParts[2]));
+
+>>>>>>> parent of 2d8e6bc... Merge remote-tracking branch 'origin/master'
             //The boolean indicates whether this point is also a stop
             //If it is a stop, we add it to the hash map of stops
             if (Boolean.parseBoolean(pointParts[3]))
@@ -234,6 +249,7 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
                     route.add(routePoint);
                 }
             }
+<<<<<<< HEAD
         }
 
         //Now that we have added all the points to our route, we can add the route to the map
@@ -251,6 +267,8 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
         if (route.getWidth() == 0)
         {
             Log.d("RouteView", "Route is empty!");
+=======
+>>>>>>> parent of 2d8e6bc... Merge remote-tracking branch 'origin/master'
         }
         mMap.addPolyline(route);
         UI_HANDLER.postDelayed(UI_UPDATE_RUNNABLE, 1000);
