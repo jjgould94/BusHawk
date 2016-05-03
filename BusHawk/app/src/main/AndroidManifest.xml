@@ -52,15 +52,16 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".StopView" >
-        </activity>
-        <activity android:name=".RouteView" >
-        </activity>
-        <activity android:name=".BusView" >
-        </activity>
+        <activity android:name=".StopView"
+            android:stateNotNeeded="true"/>
+        <activity android:name=".RouteView"
+            android:stateNotNeeded="true"/>
+        <activity android:name=".BusView"
+            android:stateNotNeeded="true"/>
         <activity
             android:name=".StopMapsActivity"
-            android:label="@string/title_activity_stop_maps" >
+            android:label="@string/title_activity_stop_maps"
+            android:stateNotNeeded="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.jjgould94.bushawk.MainActivity" />
