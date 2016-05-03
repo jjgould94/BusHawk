@@ -33,7 +33,6 @@ public class BusView extends FragmentActivity implements OnMapReadyCallback {
     private Context context;
     int routeNumber;
     int stopNumber;
-    boolean firstUpdateFlag = false;
 
     Runnable UI_UPDATE_RUNNABLE = new Runnable() {
         @Override
@@ -77,11 +76,7 @@ public class BusView extends FragmentActivity implements OnMapReadyCallback {
 
                             //TODO addMarker returns a Marker, can add them to a list so that we can update easier
                         }
-
-                        if (!firstUpdateFlag) {
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newBus, 15)); //15 corresponds to street level
-                            firstUpdateFlag = true;
-                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newBus, 15)); //15 corresponds to street level
 
                     } else {
                         //Error occurred when querying the database

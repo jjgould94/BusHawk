@@ -145,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
         Log.d("saveRoutePointsToFile", fos.getFD().toString());
         Log.d("saveRoutePointsToFile", Boolean.toString(fos.getFD().valid()));
         ParseQuery<ParseObject> query = ParseQuery.getQuery("RoutePoint");
-        query.setLimit(1000);
 
         try {
             List<ParseObject> objectList = query.find();
