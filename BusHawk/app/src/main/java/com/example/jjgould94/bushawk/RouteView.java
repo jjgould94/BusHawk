@@ -1,5 +1,6 @@
 package com.example.jjgould94.bushawk;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -23,6 +24,11 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
@@ -73,6 +79,8 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
         {
             Log.d("RouteView","The route number is "+thisRouteNum);
         }
+
+
 
     }
 
@@ -145,16 +153,20 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
     protected void onDestroy() {
         super.onDestroy();
         UI_HANDLER.removeCallbacksAndMessages(null);
+        finish();
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         UI_HANDLER.removeCallbacksAndMessages(null);
+        finish();
     }
 
     @Override
     protected void onResume() {
+        Log.d("RouteView", "Resuming RouteView.java");
         super.onResume();
         UI_HANDLER.postDelayed(UI_UPDATE_RUNNABLE, 1000);
     }
@@ -183,40 +195,65 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
         Resources routePoints = getResources();
         TypedArray pointsArray = routePoints.obtainTypedArray(R.array.pointsArray);
 
+        FileInputStream fis = null;
 
-        //Go through all of the points listed in the points.xml file
-        //Points are in format: (point#), lat, lon, (stop boolean), (list of route #s this point is for)
-        for (int i = 0; i<pointsArray.length(); i++)
+        try {
+            fis = openFileInput("BushawkPoints"); //, Context.MODE_PRIVATE);
+        }
+        catch (FileNotFoundException e)
         {
-            //Get the point item out of the array
-            String newPoint = pointsArray.getString(i);
+            //TODO something
+        }
 
-            //Parse the point into an array of strings, broken up by the comma
-            String[] pointParts = newPoint.split(",");
+        InputStreamReader isr = new InputStreamReader(fis);
+        BufferedReader br = new BufferedReader(isr);
+        String line;
+        LatLng firstPoint = null;
 
-            LatLng routePoint = new LatLng(Float.parseFloat(pointParts[1]), Float.parseFloat(pointParts[2]));
-
-            //The boolean indicates whether this point is also a stop
-            //If it is a stop, we add it to the hash map of stops
-            if (Boolean.parseBoolean(pointParts[3]))
+        try {
+            while (((line = br.readLine()) != null))
             {
-                Marker marker = mMap.addMarker(new MarkerOptions()
-                        .position(routePoint)
-                        .title("Stop #"+pointParts[0]
-                                .substring(1))
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.stop_sign)));
-                stopMap.put(Integer.parseInt(pointParts[0].substring(1)), marker);
-            }
+                //Parse the point into an array of strings, broken up by the comma
+                String[] pointParts = line.split(",");
 
-            //Check to see if the point is for this route
-            for (int j = 4; j<pointParts.length; j++)
-            {
-                if (Integer.parseInt(pointParts[j]) == thisRouteNum)
+                //Schema: name, stop bool, lat, lng, routes
+
+                LatLng routePoint = new LatLng(Float.parseFloat(pointParts[2]), Float.parseFloat(pointParts[3]));
+
+
+                //Check to see if the point is for this route
+                for (int j = 4; j<pointParts.length; j++)
                 {
-                    //The point is on this route, so add it to the route
-                    route.add(routePoint);
+                    if (Integer.parseInt(pointParts[j]) == thisRouteNum)
+                    {
+                        if (firstPoint == null)
+                        {
+                            firstPoint = routePoint;
+                        }
+                        //The point is on this route, so add it to the route
+                        route.add(routePoint);
+
+                        //The boolean indicates whether this point is also a stop
+                        //If it is a stop, we add it to the hash map of stops
+                        if (Boolean.parseBoolean(pointParts[1]))
+                        {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(routePoint)
+                                    .title("Stop #"+pointParts[0]
+                                            .substring(1))
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.stop_sign)));
+                            stopMap.put(Integer.parseInt(pointParts[0].substring(1)), marker);
+                        }
+                    }
                 }
             }
+
+            route.add(firstPoint);
+        }
+        catch (IOException e)
+        {
+            //todo
+
         }
 
         //Now that we have added all the points to our route, we can add the route to the map
