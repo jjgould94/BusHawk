@@ -48,12 +48,14 @@ public class BusView extends FragmentActivity implements OnMapReadyCallback {
                         Log.d("Objects", "Retrieved " + objects.size() + "buses");
                         ListIterator<ParseObject> busIterator = objects.listIterator();
                         LatLng newBus = null;
+                        String icon = "icon_";
                         while (busIterator.hasNext()) {
                             ParseObject object = busIterator.next();
                             double lat = object.getDouble("latitude");
                             double lon = object.getDouble("longitude");
                             int name = object.getInt("busID");
                             String stringName = Integer.toString(name);
+                            String icon_New = icon.concat(stringName);
                             Log.d("Objects", "Name: " + stringName + " Lat: " + lat + "Lng: " + lon);
                             newBus = new LatLng(lat, lon);
                             if (markerMap.containsKey(name)) {
@@ -63,8 +65,8 @@ public class BusView extends FragmentActivity implements OnMapReadyCallback {
                                 Marker marker = mMap.addMarker(new MarkerOptions()
                                         .position(newBus)
                                         .title(stringName)
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_icon_two))
-                                        );
+                                        .icon(BitmapDescriptorFactory.fromFile(icon_New)));
+
                                 markerMap.put(name, marker);
                             }
                             //TODO: clear all markers and then add them back? Need list

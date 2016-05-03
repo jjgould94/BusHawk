@@ -97,6 +97,7 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
                             double lon = object.getDouble("longitude");
                             int name = object.getInt("busID");
                             String stringName = Integer.toString(name);
+                            String icon = "icon_" + stringName;
                             Log.d("Objects", "Name: " + stringName + " Lat: " + lat + "Lng: " + lon);
                             newBus = new LatLng(lat, lon);
                             if (route == thisRouteNum) {
@@ -105,7 +106,7 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
                                 } else {
                                     Marker marker = mMap.addMarker(new MarkerOptions()
                                             .position(newBus).title(stringName)
-                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_icon)));
+                                            .icon(BitmapDescriptorFactory.fromFile(icon)));
                                     markerMap.put(name, marker);
                                 }
                             }

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:layout_weight="1"
     android:orientation="vertical"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -24,16 +26,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/routeMap"
-        android:textColor="#0000ff"
+        android:textColor="#f6f6f7"
         android:gravity="center_horizontal"
         android:id="@+id/routeNumberString"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/routeText" />
     <ListView
         android:layout_width="match_parent"
-        android:textColor="#0000ff"
-        android:layout_height="230dp"
-        android:layout_weight="0.49">
+        android:textColor="#f6f6f7"
+        android:layout_height="213dp">
     </ListView>
     <!--
     <TableLayout
