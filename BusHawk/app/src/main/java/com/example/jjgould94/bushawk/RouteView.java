@@ -1,16 +1,13 @@
 package com.example.jjgould94.bushawk;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,11 +23,6 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
@@ -44,7 +36,6 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
     private Map<Integer, Marker> markerMap;
     private Map<Integer, Marker> stopMap;
     boolean firstRefreshFlag;
-    private FileOutputStream fos;
 
     int thisRouteNum = 0;
 
@@ -81,20 +72,6 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
         else
         {
             Log.d("RouteView","The route number is "+thisRouteNum);
-        }
-
-
-        try
-        {
-            saveRoutePointsToFile("BushawkPoints");
-        }
-        catch (FileNotFoundException fnfExcep)
-        {
-            Log.d("RouteView","File not found exception encountered when running saveRoutePointsToFile");
-        }
-        catch (IOException ioExcep)
-        {
-            Log.d("RouteView","IOExceception encountered when running saveRoutePointsToFile");
         }
 
     }
@@ -248,121 +225,4 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
 
     }
 
-    void saveRoutePointsToFile(String filename) throws FileNotFoundException, IOException {
-        fos = openFileOutput(filename, Context.MODE_PRIVATE);
-        Log.d("saveRoutePointsToFile",fos.getFD().toString());
-        Log.d("saveRoutePointsToFile", Boolean.toString(fos.getFD().valid()));
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("RoutePoint");
-
-        try {
-            List<ParseObject> objectList = query.find();
-
-            // Sort the results by point name
-            ListIterator<ParseObject> pointIterator = objectList.listIterator();
-            // Use a map to store the objects according to their int name
-            Map<Integer, ParseObject> objectMap = new HashMap<Integer, ParseObject>();
-            while (pointIterator.hasNext()) {
-                ParseObject object = pointIterator.next();
-                String name = object.getString("name");
-                // Get int value from name
-                String numberString = name.substring(1);
-                int number = Integer.parseInt(numberString);
-                objectMap.put(number, object);
-            }
-            // Sort the keys of the map
-            List<Integer> pointNumList = new ArrayList<Integer>(objectMap.keySet());
-            Collections.sort(pointNumList);
-            // Add the elements to the file in order
-            for (int key : pointNumList) {
-                ParseObject object = objectMap.get(key);
-                String name = object.getString("name");
-                double latitude = object.getDouble("latitude");
-                double longitude = object.getDouble("longitude");
-                boolean stopBool = object.getBoolean("stop");
-                List<Integer> routeList = object.getList("routes");
-                StringBuilder sb = new StringBuilder();
-                sb.append(name + ',');
-                sb.append(Boolean.toString(stopBool)+',');
-                sb.append(latitude);
-                sb.append(',');
-                sb.append(longitude);
-                for (int num : routeList) {
-                    sb.append(',');
-                    sb.append(num);
-                }
-                sb.append('\n');
-                try {
-                    //TODO add these to a global list of LatLng objects instead of writing to file
-                    fos.write(sb.toString().getBytes());
-                    Log.d("saveRoutePointsToFile", "Written to file: "+sb.toString());
-                } catch (IOException ioe) {
-                    // What to do on exception?
-                    Log.d("saveRoutePointsToFile", "IOException caught: "+ioe.getMessage());
-                    //Log.d("saveRoutePointsToFile", Boolean.toString(fos.getFD().valid()));
-                }
-            }
-        }
-        catch (ParseException pe)
-        {
-
-        }
-
-        fos.close();
-    }
 }
-
-
-        /*
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-                if (e == null) {
-                    // Sort the results by point name
-                    ListIterator<ParseObject> pointIterator = objects.listIterator();
-                    // Use a map to store the objects according to their int name
-                    Map<Integer, ParseObject> objectMap = new HashMap<Integer, ParseObject>();
-                    while (pointIterator.hasNext()) {
-                        ParseObject object = pointIterator.next();
-                        String name = object.getString("name");
-                        // Get int value from name
-                        String numberString = name.substring(1);
-                        int number = Integer.parseInt(numberString);
-                        objectMap.put(number, object);
-                    }
-                    // Sort the keys of the map
-                    List<Integer> pointNumList = new ArrayList<Integer>(objectMap.keySet());
-                    Collections.sort(pointNumList);
-                    // Add the elements to the file in order
-                    for (int key : pointNumList) {
-                        ParseObject object = objectMap.get(key);
-                        String name = object.getString("name");
-                        double latitude = object.getDouble("latitude");
-                        double longitude = object.getDouble("longitude");
-                        List<Integer> routeList = object.getList("routes");
-                        StringBuilder sb = new StringBuilder();
-                        sb.append(name + ',');
-                        sb.append(latitude);
-                        sb.append(',');
-                        sb.append(longitude);
-                        for (int num : routeList) {
-                            sb.append(',');
-                            sb.append(num);
-                        }
-                        sb.append('\n');
-                        try {
-                            fos.write(sb.toString().getBytes());
-                            Log.d("saveRoutePointsToFile", "Written to file: "+sb.toString());
-                        } catch (IOException ioe) {
-                            // What to do on exception?
-                            Log.d("saveRoutePointsToFile", "IOException caught: "+ioe.getMessage());
-                            //Log.d("saveRoutePointsToFile", Boolean.toString(fos.getFD().valid()));
-                        }
-                    }
-                } else {
-                    //Error occurred when querying the database
-                    Log.d("Objects", "Error: " + e.getMessage());
-                }
-            }
-        });
-
-        */
