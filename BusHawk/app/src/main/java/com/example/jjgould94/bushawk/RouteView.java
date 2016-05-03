@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,6 +38,7 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
     private Map<Integer, Marker> stopMap;
     boolean firstRefreshFlag;
 
+
     int thisRouteNum = 0;
 
     @Override
@@ -48,8 +50,11 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.routeMap);
         mapFragment.getMapAsync(this);
+
+        //mMap = mapFragment.getMapAsync
         markerMap = new HashMap<Integer, Marker>();
         stopMap = new HashMap<Integer, Marker>();
+
         firstRefreshFlag = true;
 
         //The intent contains the route number sent from the main activity
@@ -73,6 +78,10 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
         {
             Log.d("RouteView","The route number is "+thisRouteNum);
         }
+
+        //Update the route number string in RouteView.java
+        TextView t = (TextView) findViewById(R.id.routeNumberString);
+        //t.setText();
 
     }
 
@@ -154,6 +163,14 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
     }
 
     @Override
+    protected void onStop()
+    {
+        super.onStop();
+        UI_HANDLER.removeCallbacksAndMessages(null);
+        finish();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         UI_HANDLER.postDelayed(UI_UPDATE_RUNNABLE, 1000);
@@ -220,6 +237,21 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
         }
 
         //Now that we have added all the points to our route, we can add the route to the map
+
+        if (mMap == null)
+        {
+            Log.d("RouteView", "mMap is null!");
+            //todo something here
+        }
+        if (route == null)
+        {
+            Log.d("RouteView", "the route being added to mMap is null!");
+            //todo something here
+        }
+        if (route.getWidth() == 0)
+        {
+            Log.d("RouteView", "Route is empty!");
+        }
         mMap.addPolyline(route);
         UI_HANDLER.postDelayed(UI_UPDATE_RUNNABLE, 1000);
 
