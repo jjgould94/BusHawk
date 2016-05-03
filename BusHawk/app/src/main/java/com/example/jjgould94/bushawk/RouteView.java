@@ -106,7 +106,7 @@ public class RouteView extends FragmentActivity implements OnMapReadyCallback {
                                 } else {
                                     Marker marker = mMap.addMarker(new MarkerOptions()
                                             .position(newBus).title(stringName)
-                                            .icon(BitmapDescriptorFactory.fromFile(icon)));
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_1)));
                                     markerMap.put(name, marker);
                                 }
                             }

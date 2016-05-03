@@ -65,7 +65,7 @@ public class BusView extends FragmentActivity implements OnMapReadyCallback {
                                 Marker marker = mMap.addMarker(new MarkerOptions()
                                         .position(newBus)
                                         .title(stringName)
-                                        .icon(BitmapDescriptorFactory.fromFile(icon_New)));
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_1)));
 
                                 markerMap.put(name, marker);
                             }
