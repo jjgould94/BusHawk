@@ -4,13 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.content.Context;
-import android.widget.ListAdapter;
-import android.widget.ListPopupWindow;
 
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -26,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+
 
 public class MainActivity extends AppCompatActivity {
     private Context context;    //NOTE: added, because the 'this' keyword inside the listeners
